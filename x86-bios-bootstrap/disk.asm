@@ -17,15 +17,24 @@ read_block:
 	OR BX, BX
 	JZ _nooff
 	MOV AX, [BX]
-	ADD [DI], AX
+	ADD [da_lba], AX
 	MOV AX, [BX + 2]
-	ADC [DI + 2], AX
+	ADC [da_lba + 2], AX
 	MOV AX, [BX + 4]
-	ADC [DI + 4], AX
+	ADC [da_lba + 4], AX
 	MOV AX, [BX + 6]
-	ADC [DI + 6], AX
+	ADC [da_lba + 6], AX
 	
 	_nooff:
+	
+	MOV AX, [da_lba + 6]
+	CALL print_ax
+	MOV AX, [da_lba + 4]
+	CALL print_ax
+	MOV AX, [da_lba + 2]
+	CALL print_ax
+	MOV AX, [da_lba]
+	CALL print_ax
 	
 	MOV SI, da_packet
 	MOV AH, 0x42
