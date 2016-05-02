@@ -2,7 +2,7 @@
 ;	SI	Offset of fs header in memory
 ;	DI	Offset at which to read the file
 ;	DX	Segment at which to load file to
-load_bootprog:
+load_bootprog:		
 	PUSHA
 	PUSH DI
 	
@@ -16,8 +16,8 @@ load_bootprog:
 		MOV SI, boot_marker 
 		MOV DI, 0x7E1C
 		MOV CX, 4
-		CALL blkcmp
-		JC _bootable
+		REPE CMPSB
+		JE _bootable
 		MOV SI, 0x7E00
 	JMP _load_next_fh
 	

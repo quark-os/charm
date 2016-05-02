@@ -1,19 +1,19 @@
 ;	SI	First operand of compare
 ;	DI	Second operand to compare
 ;	CX	Size of block to compare
-blkcmp:
+blkcmp:	
 	PUSHA
-	XOR AX, AX
-	_cmploop:
-		LODSB
-		XCHG SI, DI
-		ROL AX, 8
-		LODSB
-		CMP AL, AH
-	LOOPE _cmploop
-	OR CX, CX
-	JNZ _ne
-	STC
-	_ne:
+	REPE CMPSB
+	POPA
+	RET
+
+;	DI	Location to start zeroing
+;	CX	Length of block
+blkzero:
+	PUSHA
+	_zeroloop:
+		MOV BYTE [SI], 0
+		INC SI
+		LOOP _zeroloop
 	POPA
 	RET

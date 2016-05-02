@@ -8,6 +8,7 @@ read_block:
 	
 	MOV AX, ES
 	MOV [blkcnt], CX
+
 	MOV [da_off], DI
 	MOV [da_seg], AX
 	MOV CX, 4
@@ -27,20 +28,11 @@ read_block:
 	
 	_nooff:
 	
-	MOV AX, [da_lba + 6]
-	CALL print_ax
-	MOV AX, [da_lba + 4]
-	CALL print_ax
-	MOV AX, [da_lba + 2]
-	CALL print_ax
-	MOV AX, [da_lba]
-	CALL print_ax
-	
 	MOV SI, da_packet
 	MOV AH, 0x42
 	MOV DL, 0x80
 	INT 0x13
-	
+		
 	JC error
 	
 	POPA
