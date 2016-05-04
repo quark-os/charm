@@ -233,12 +233,6 @@ MOV EAX, CR0
 OR AL, 1     ; set PE (Protection Enable) bit in CR0 (Control Register 0)
 MOV CR0, EAX
 
-BITS 32
-
-JMP [charm_entry]
-
-BITS 16
-
 MOV SI, splash
 CALL print_string ; Will show 'y' if the loader works so far
 

@@ -16,9 +16,9 @@ print_bx:
 	MOV CX, 4   ;four places
 	hexloop:
 		ROL AX, 4   ;leftmost will
-		MOV AX, BX   ; become
-		AND AX, 0x0f   ; rightmost index into hexstr
-		ADD AL, '0'
+		MOV BX, AX   ; become
+		AND BX, 0x0f   ; rightmost index into hexstr
+		ADD BL, '0'
 					;CMP BL, '9'
 					;JLE noshift
 					;ADD BL, 7
@@ -33,6 +33,7 @@ print_bx:
 						; E = '>'
 						; F = '?'
 		;MOV [DI], BL
+		MOV AL, BL
 		STOSB
 		LOOP hexloop
 	MOV SI, outstr16

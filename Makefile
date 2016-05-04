@@ -3,7 +3,7 @@ link_script = linker.ld
 bootstrap_src = bootstrap.asm fs.asm util.asm
 
 CC = i686-elf-gcc
-CFLAGS += -fPIC -ffreestanding -nostdlib -Wall -Wextra -lgcc -T $(addprefix charm/, $(link_script))
+CFLAGS += -ffreestanding -nostdlib -Wall -Wextra -lgcc -T $(addprefix charm/, $(link_script))
 
 charm: $(addprefix charm/, $(charm_obj))
 	$(CC) $(CFLAGS) $(addprefix charm/, $(charm_obj)) -o bin/charm

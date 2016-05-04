@@ -4,5 +4,7 @@ blkzero:
 	PUSHA
 	XOR AL, AL
 	REP STOSB
+				MOV AX, CX
+				CALL print_ax
 	POPA
 	RET
