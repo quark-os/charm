@@ -2,11 +2,14 @@ charm_obj = charm.o entry.o
 link_script = linker.ld
 bootstrap_src = bootstrap.asm fs.asm util.asm
 
-CC = i686-elf-gcc
-CFLAGS += -ffreestanding -nostdlib -Wall -Wextra -lgcc -T $(addprefix charm/, $(link_script))
+CXX = i686-elf-g++
+CC = i686-elf-g++
+CPPFLAGS += -ffreestanding -Wall -Wextra -fno-exceptions -fno-rtti -fpermissive 
+
+LINKFLAGS = -T $(addprefix charm/, $(link_script)) -ffreestanding -nostdlib -lgcc
 
 charm: $(addprefix charm/, $(charm_obj))
-	$(CC) $(CFLAGS) $(addprefix charm/, $(charm_obj)) -o bin/charm
+	$(CXX) $(LINKFLAGS) $(addprefix charm/, $(charm_obj)) -o bin/charm
 
 .PHONY: x86-bios-bootstrap
 x86-bios-bootstrap: #$(addprefix x86-bios-bootstrap/, $(bootstrap_src))
