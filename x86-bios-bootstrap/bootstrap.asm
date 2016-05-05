@@ -1,7 +1,7 @@
 org 0x7C00
 
 %macro ALIVE 0
-	MOV BX, 0xFFFF
+	MOV BX, 0x1234
 	CALL NEAR print_bx
 %endmacro
 
@@ -34,7 +34,7 @@ org 0x7C00
 %define file_header_buffer 0x7E00
 %define gdt_code_access 0x9A
 %define gdt_data_access 0x92
-%define gdt_size 0x24
+%define gdt_size 23
 
 ; Program status codes to debugging purposes
 %define status_gpt 0x10
@@ -59,6 +59,7 @@ MOV CX, data_top - data_bottom
 MOV DI, data_bottom
 CALL blkzero ; Zero data block
 MOV BYTE [tlba], 1 ; Initialize first LBA in GPT
+
 
 OR WORD [gdt + 8], 0xFFFF
 MOV BYTE [gdt + 8 + 5], gdt_code_access
@@ -164,7 +165,7 @@ MOV CX, 4
 REPE CMPSB
 JNE error
 
-ADD SI, 0x12
+ADD SI, 0x14
 MOV DI, charm_entry
 MOV CX, 4
 REPE MOVSB
@@ -232,15 +233,30 @@ CLI
 MOV EAX, CR0 
 OR AL, 1     ; set PE (Protection Enable) bit in CR0 (Control Register 0)
 MOV CR0, EAX
+JMP 0x08:load_cs
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Protected mode code; load GDT and enter next stage					;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 BITS 32
 
-JMP [charm_entry]
+	load_cs:
+	MOV AX, 0x10
+	MOV DS, AX
+	MOV ES, AX
+	MOV FS, AX
+	MOV GS, AX
+	MOV SS, AX
+
+;halt32:
+;	HLT
+;	JMP halt32
+
+	MOV EAX, [charm_entry]
+	JMP EAX
 
 BITS 16
-
-MOV SI, splash
-CALL print_string ; Will show 'y' if the loader works so far
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; This should never be reached, it just halts if an error happens		;
@@ -249,20 +265,16 @@ halt:
 	HLT
 	JMP halt
 error:
-	MOV BX, [status - 1]
-	CALL print_bx
-	MOV SI, error_msg
-	CALL print_string
+	;MOV BX, [status - 1]
+	;CALL print_bx
+	;MOV SI, error_msg
+	;CALL print_string
 	JMP halt
 
 %include "x86-bios-bootstrap/print.asm"
 %include "x86-bios-bootstrap/stdlib.asm"
 %include "x86-bios-bootstrap/disk.asm"
 
-error_msg:
-		DB	"n", 0
-splash:
-		DB	"y", 0
 elf_magic_num:
 		DB	0x7F, "ELF"
 gpt_magic_num:

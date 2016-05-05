@@ -1,21 +1,8 @@
-;	SI	String to print
-print_string:
-	PUSHA
-	_print_loop:
-		LODSB
-		MOV AH, 0x0E
-		INT 0x10
-		OR AL, AL
-		JNZ _print_loop
-	POPA
-	RET
-
 print_bx:
 	PUSHA
-	MOV DI, outstr16
 	MOV CX, 4   ;four places
 	hexloop:
-		ROL AX, 4   ;leftmost will
+		ROL BX, 4   ;leftmost will
 		MOV AX, BX   ; become
 		AND AX, 0x0f   ; rightmost index into hexstr
 		ADD AL, '0'
@@ -32,10 +19,8 @@ print_bx:
 						; D = '='
 						; E = '>'
 						; F = '?'
-		;MOV [DI], BL
-		STOSB
+		MOV AH, 0x0E
+		INT 0x10
 		LOOP hexloop
-	MOV SI, outstr16
-	CALL print_string
 	POPA
 	RET
