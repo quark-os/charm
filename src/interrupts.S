@@ -22,3 +22,19 @@ keyboard_isr:
 	call picEOI
 	popa
 	iret
+	
+.global double_fault
+double_fault: # Never returns, just hangs the system
+	cli
+	movb [0xB8000], '#'
+	hng:
+		hlt
+		jmp hng
+
+.global unhandled_exception
+unhandled_exception:
+	sub esp, 4
+	iret
+
+
+

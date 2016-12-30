@@ -107,6 +107,26 @@ void Window::operator<<(uint64_t data)
 	}
 }
 
+void Window::putChar(char c)
+{
+	vga[coordToOffset(cursorX + 1 + this->x, cursorY + 1 + this->y)] = c;
+	if(c == '\n')
+	{
+		newline();
+	}
+	else
+	{
+		if(cursorX < width - 3)
+		{
+			cursorX++;
+		}
+		else
+		{
+			newline();
+		}
+	}
+}
+
 void Window::clear()
 {
 	for(int x = 1; x < width - 1; x++)

@@ -9,6 +9,10 @@ extern "C"
 	
 	void keyboard_isr();
 	
+	void double_fault();
+	
+	void unhandled_exception();
+	
 	void picEOI();
 }
 

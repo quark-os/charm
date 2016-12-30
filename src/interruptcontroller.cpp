@@ -20,6 +20,14 @@ void InterruptController::init(void* idtLocation)
 			idt.writeDescriptor(i, test_handler);
 		}
 	}
+	idt.writeDescriptor(0x08, double_fault);
+	idt.writeDescriptor(0x0A, unhandled_exception);
+	idt.writeDescriptor(0x0B, unhandled_exception);
+	idt.writeDescriptor(0x0C, unhandled_exception);
+	idt.writeDescriptor(0x0D, unhandled_exception);
+	idt.writeDescriptor(0x0E, unhandled_exception);
+	idt.writeDescriptor(0x11, unhandled_exception);
+	idt.writeDescriptor(0x1E, unhandled_exception);
 	idt.writeDescriptor(0x21, keyboard_isr);
 	idt.update();
 	pic.update();

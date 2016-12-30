@@ -3,55 +3,31 @@
 #include "keyboardtranslator.h"
 #include "interruptcontroller.h"
 
-Window System::console;
-
-Window System::error;
+Display System::display;
 
 void System::initialize()
 {
-	console = Window(0, 1, 40, 24);
-	error = Window(40, 1, 40, 24);
-	console.clear();
-	error.clear();
+	display = Display();
 	
 	KeyboardTranslator::initialize();
 	Keyboard::initialize();
+	Keyboard::addListener(&display.console);
 	InterruptController::init(0x100000);
 }
 
-void System::print(char* msg)
+void System::run()
 {
-	console << msg;
-}
-
-void System::print(uint8_t msg)
-{
-	console << msg;
-}
-
-void System::print(uint16_t msg)
-{
-	console << msg;
-}
-
-void System::print(uint32_t msg)
-{
-	console << msg;
-}
-
-void System::print(uint64_t msg)
-{
-	console << msg;
-}
-
-void System::printError(char* msg)
-{
-	error << msg;
+	asm("sti");
+	while(true)
+	{
+		asm("hlt");
+		Keyboard::handleEvents();
+	}
 }
 
 void System::panic()
 {
-	error << "PANIC: Halting system";
+	display.printError("PANIC: Halting system");
 	asm("cli");
 	while(true)
 		asm("hlt");

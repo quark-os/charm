@@ -1,0 +1,36 @@
+#include "console.h"
+#include "keyboardtranslator.h"
+#include "keyboard.h"
+
+Console::Console()
+	: Window()
+{
+	bufferLength = 0;
+	for(int i = 0; i < 256; i++)
+		commandBuffer[i] = 0;
+}
+
+Console::Console(int x, int y, int width, int height)
+	: Window(x, y, width, height)
+{
+	bufferLength = 0;
+	for(int i = 0; i < 256; i++)
+		commandBuffer[i] = 0;
+}
+
+void Console::operator() (KeyboardEvent event)
+{
+	char c = KeyboardTranslator::keycodeToAscii(Keyboard::getKeyState(0x33) ? event.getKeycode() + 0x60 : event.getKeycode());
+	if(event.isPressed() && c != '\0')
+	{
+		if(c != '\0')
+		{
+			putChar(c);
+			commandBuffer[bufferLength] = c;
+			bufferLength++;
+		}
+		// Handle other keys...
+	}
+}
+
+

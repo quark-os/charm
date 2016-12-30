@@ -23,6 +23,8 @@ public:
 	
 	virtual void operator<<(uint64_t data);
 	
+	void putChar(char c);
+	
 	void clear();
 	
 private:
