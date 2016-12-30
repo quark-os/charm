@@ -1,4 +1,5 @@
 #include "window.h"
+#include "system.h"
 
 #define BOX_TOPLEFT 201
 #define BOX_TOPRIGHT 187
@@ -55,6 +56,76 @@ Window::Window(int x, int y, int width, int height)
 
 void Window::operator<<(char* data)
 {
+	printString(data);
+}
+
+void Window::operator<<(uint8_t data)
+{
+	char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+	char out[] = {0, 0};
+	for(int i = 0; i < 2; i++)
+	{
+		out[0] = digits[data & 0x0F];
+		printString(out);
+		data = data >> 4;
+	}
+}
+
+void Window::operator<<(uint16_t data)
+{
+	char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+	char out[] = {0, 0};
+	for(int i = 0; i < 4; i++)
+	{
+		out[0] = digits[data & 0x0F];
+		printString(out);
+		data = data >> 4;
+	}
+}
+
+void Window::operator<<(uint32_t data)
+{
+	char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+	char out[] = {0, 0};
+	for(int i = 0; i < 6; i++)
+	{
+		out[0] = digits[data & 0x0F];
+		printString(out);
+		data = data >> 4;
+	}
+}
+
+void Window::operator<<(uint64_t data)
+{
+	char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+	char out[] = {0, 0};
+	for(int i = 0; i < 16; i++)
+	{
+		out[0] = digits[data & 0x0F];
+		printString(out);
+		data = data >> 4;
+	}
+}
+
+void Window::clear()
+{
+	for(int x = 1; x < width - 1; x++)
+	{
+		for(int y = 1; y < height - 1; y++)
+		{
+			vga[coordToOffset(x + this->x, y + this->y)] = ' ';
+		}
+	}
+	
+}
+
+int Window::coordToOffset(int x, int y)
+{
+	return (80*y + x) * 2;
+}
+
+void Window::printString(char* data)
+{
 	for(int i = 0; data[i] != 0; i++)
 	{
 		if(data[i] != '\n')
@@ -76,69 +147,4 @@ void Window::operator<<(char* data)
 			cursorX = 0;
 		}
 	}
-}
-
-void Window::operator<<(uint8_t data)
-{
-	char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-	char out[] = {0, 0};
-	for(int i = 0; i < 2; i++)
-	{
-		out[0] = digits[data & 0x0F];
-		operator<<(out);
-		data = data >> 4;
-	}
-}
-
-void Window::operator<<(uint16_t data)
-{
-	char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-	char out[] = {0, 0};
-	for(int i = 0; i < 4; i++)
-	{
-		out[0] = digits[data & 0x0F];
-		operator<<(out);
-		data = data >> 4;
-	}
-}
-
-void Window::operator<<(uint32_t data)
-{
-	char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-	char out[] = {0, 0};
-	for(int i = 0; i < 6; i++)
-	{
-		out[0] = digits[data & 0x0F];
-		operator<<(out);
-		data = data >> 4;
-	}
-}
-
-void Window::operator<<(uint64_t data)
-{
-	char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-	char out[] = {0, 0};
-	for(int i = 0; i < 16; i++)
-	{
-		out[0] = digits[data & 0x0F];
-		operator<<(out);
-		data = data >> 4;
-	}
-}
-
-void Window::clear()
-{
-	for(int x = 1; x < width - 1; x++)
-	{
-		for(int y = 1; y < height - 1; y++)
-		{
-			vga[coordToOffset(x + this->x, y + this->y)] = ' ';
-		}
-	}
-	
-}
-
-int Window::coordToOffset(int x, int y)
-{
-	return (80*y + x) * 2;
 }

@@ -8,11 +8,15 @@ bool Keyboard::keyflags[128];
 void Keyboard::initialize()
 {
 	uint8_t status = inb(0x64);
+	System::print("PS/2 status byte: ");
 	System::print(status);
-	System::panic();
-	/*if(!waitForEmptyBuffer())
+	System::print("\n");
+	
+	if(!waitForEmptyBuffer())
 		System::panic();
 	outb(0x64, 0xF5);
+	
+	System::print("Stopped scanning\n");
 	
 	if(!waitForEmptyBuffer())
 		System::panic();
@@ -21,9 +25,13 @@ void Keyboard::initialize()
 		System::panic();
 	outb(0x60, 2);
 	
+	System::print("Switched to set 2\n");
+	
 	if(!waitForEmptyBuffer())
 		System::panic();
-	outb(0x64, 0xF4);*/
+	outb(0x64, 0xF4);
+	
+	System::print("Started scanning");
 }
 
 void Keyboard::sendEvent(KeyboardEvent event)

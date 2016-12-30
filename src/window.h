@@ -36,6 +36,8 @@ private:
 	int cursorX, cursorY;
 	
 	int coordToOffset(int x, int y);
+	
+	void printString(char* data);
 
 };
 
