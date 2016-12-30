@@ -3,6 +3,7 @@
 
 class Stream
 {
+public:
 	virtual void operator<<(char* data) = 0;
 	virtual void operator<<(uint8_t data) = 0;
 	virtual void operator<<(uint16_t data) = 0;
