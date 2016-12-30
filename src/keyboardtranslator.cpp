@@ -1,4 +1,5 @@
 #include "keyboardtranslator.h"
+#include "system.h"
 
 uint8_t KeyboardTranslator::keycodeLookup[256];
 
@@ -60,7 +61,7 @@ uint8_t KeyboardTranslator::lookupToKeycode(uint8_t lookupID)
 
 uint8_t KeyboardTranslator::keycodeToAscii(uint8_t keycode)
 {
-	
+	return asciiLookup[keycode];
 }
 
 uint8_t KeyboardTranslator::asciiToKeycode(uint8_t ascii)

@@ -137,14 +137,36 @@ void Window::printString(char* data)
 			}
 			else
 			{
-				cursorY++;
-				cursorX = 0;
+				newline();
 			}
 		}
 		else
 		{
-			cursorY++;
-			cursorX = 0;
+			newline();
 		}
+	}
+}
+
+void Window::newline()
+{
+	if(cursorY < (height - 3))
+	{
+		cursorY++;
+		cursorX = 0;
+	}
+	else
+	{
+		for(int i = x + 1; i < (x + width - 1); i++)
+		{
+			for(int j = y + 1; j < (y + height - 2); j++)
+			{
+				vga[coordToOffset(i, j)] = vga[coordToOffset(i, j+1)];
+			}
+		}
+		for(int i = x + 1; i < (x + width - 1); i++)
+		{
+			vga[coordToOffset(i, y + height - 2)] = ' ';
+		}
+		cursorX = 0;
 	}
 }

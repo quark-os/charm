@@ -38,6 +38,8 @@ private:
 	int coordToOffset(int x, int y);
 	
 	void printString(char* data);
+	
+	void newline();
 
 };
 
