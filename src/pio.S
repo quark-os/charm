@@ -15,7 +15,7 @@ inb: # inb(port)
 
 .global io_wait
 io_wait: # io_wait(); wastes an io cycle
-	mov dx, 0x80
+	mov dx, 0x90
 	mov al, 0
 	out dx, al
 	ret

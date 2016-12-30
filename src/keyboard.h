@@ -13,6 +13,10 @@ public:
 			
 private:
 
+	static void flushData();
+	
+	static bool waitForEmptyBuffer();
+
 	static bool keyflags[128];
 		
 };

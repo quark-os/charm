@@ -1,5 +1,5 @@
 charm_obj = charm.o entry.o pio.o idtdescriptor.o idt.o lidt.o interrupts.o window.o purevirtual.o interruptcontroller.o \
-	picdriver.o isr.o interrupthandlers.o keyboard.o keyboardevent.o keyboardtranslator.o
+	picdriver.o isr.o interrupthandlers.o keyboard.o keyboardevent.o keyboardtranslator.o system.o
 link_script = linker.ld
 
 CXX = i686-elf-g++
