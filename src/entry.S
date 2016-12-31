@@ -20,8 +20,10 @@ stack_top:
 .type _start, @function
 _start:
 	MOVL $stack_top, %esp
-
+	
+	CALL _init
 	CALL main 
+	CALL _fini
 
 	CLI
 	HLT

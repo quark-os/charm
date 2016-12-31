@@ -6,16 +6,14 @@
 Display System::display;
 
 void System::initialize()
-{
-	display = Display();
-	display.initialize();
-	panic();
+{	
+	display = Display();		
 	KeyboardTranslator::initialize();
 	Keyboard::initialize();
+	display.initialize();
 	InterruptController::init(0x100000);
 	
-	display.printError("Finished init.\n");
-	panic();
+	display.print("Finished init.\n");
 }
 
 void System::run()

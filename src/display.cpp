@@ -7,14 +7,11 @@ Display::Display()
 	clear();
 	console = Console(0, 1, 40, 24);
 	error = Window(40, 1, 40, 24);
-	
-	console << (uint32_t) &console;
 }
 
 void Display::initialize()
 {
-	error << (uint32_t) &console;
-	//Keyboard::addListener(&console);
+	Keyboard::addListener(&console);
 }
 
 void Display::clear()

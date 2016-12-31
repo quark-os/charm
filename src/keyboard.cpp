@@ -68,12 +68,7 @@ void Keyboard::handleEvents()
 		{
 			if(listeners[j] != 0)
 			{
-				System::display.printError(eventQueue[i].getKeycode());
-				System::display.printError(" : ");
-				System::display.printError((uint32_t) *((uint32_t*) (listeners[j])));
-				System::display.printError("\n");
-				System::panic();
-				(*listeners[j]).process(eventQueue[i]);
+				listeners[j]->process(eventQueue[i]);
 			}
 		}
 	}

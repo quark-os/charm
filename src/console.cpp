@@ -4,7 +4,7 @@
 #include "system.h"
 
 Console::Console()
-	: Window()
+	: Window(), EventListenerKey()
 {
 	bufferLength = 0;
 	for(int i = 0; i < 256; i++)
@@ -12,7 +12,7 @@ Console::Console()
 }
 
 Console::Console(int x, int y, int width, int height)
-	: Window(x, y, width, height)
+	: Window(x, y, width, height), EventListenerKey()
 {
 	bufferLength = 0;
 	for(int i = 0; i < 256; i++)
