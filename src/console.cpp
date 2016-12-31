@@ -24,7 +24,12 @@ void Console::process(KeyboardEvent event)
 	char c = KeyboardTranslator::keycodeToAscii(Keyboard::getKeyState(0x33) ? event.getKeycode() + 0x60 : event.getKeycode());
 	if(event.isPressed() && c != '\0')
 	{
-		if(c != '\0')
+		if(c == '\n')
+		{
+			newline();
+			// Do command
+		}
+		else
 		{
 			putChar(c);
 			commandBuffer[bufferLength] = c;
