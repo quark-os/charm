@@ -13,7 +13,7 @@ public:
 		
 		Console(int x, int y, int width, int height);
 		
-		virtual void operator() (KeyboardEvent event);
+		virtual void process(KeyboardEvent event);
 			
 private:
 	

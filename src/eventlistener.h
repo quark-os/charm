@@ -7,7 +7,7 @@ public:
 
 	EventListener();
 	
-	virtual void operator() ();
+	virtual void process();
 			
 private:
 	

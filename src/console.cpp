@@ -1,6 +1,7 @@
 #include "console.h"
 #include "keyboardtranslator.h"
 #include "keyboard.h"
+#include "system.h"
 
 Console::Console()
 	: Window()
@@ -18,7 +19,7 @@ Console::Console(int x, int y, int width, int height)
 		commandBuffer[i] = 0;
 }
 
-void Console::operator() (KeyboardEvent event)
+void Console::process(KeyboardEvent event)
 {
 	char c = KeyboardTranslator::keycodeToAscii(Keyboard::getKeyState(0x33) ? event.getKeycode() + 0x60 : event.getKeycode());
 	if(event.isPressed() && c != '\0')

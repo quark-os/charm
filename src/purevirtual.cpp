@@ -1,9 +1,9 @@
-#define ech 0
+#include "system.h"
 
 extern "C"
 {
 	void __cxa_pure_virtual()
 	{
-		// ECH
+		System::panic();
 	}
 }

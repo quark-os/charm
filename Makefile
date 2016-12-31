@@ -5,7 +5,7 @@ link_script = linker.ld
 
 CXX = i686-elf-g++
 CC = i686-elf-g++
-CPPFLAGS += -ffreestanding -Wall -Wextra -fno-exceptions -fno-rtti -fpermissive 
+CPPFLAGS += -O0 -ffreestanding -Wall -Wextra -fno-exceptions -fno-rtti -fpermissive 
 
 LINKFLAGS = -T $(addprefix src/, $(link_script)) -ffreestanding -nostdlib -lgcc
 

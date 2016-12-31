@@ -13,21 +13,21 @@ public:
 	
 	Window(int x, int y, int width, int height);
 	
-	virtual void operator<<(char* data);
+	void operator<<(char* data);
 	
-	virtual void operator<<(uint8_t data);
+	void operator<<(uint8_t data);
 	
-	virtual void operator<<(uint16_t data);
+	void operator<<(uint16_t data);
 	
-	virtual void operator<<(uint32_t data);
+	void operator<<(uint32_t data);
 	
-	virtual void operator<<(uint64_t data);
+	void operator<<(uint64_t data);
 	
 	void putChar(char c);
 	
 	void clear();
 	
-private:
+protected:
 
 	char* vga;
 

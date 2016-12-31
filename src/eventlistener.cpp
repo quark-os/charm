@@ -6,7 +6,7 @@ EventListener::EventListener()
 	
 }
 
-void EventListener::operator() ()
+void EventListener::process()
 {
 	
 }

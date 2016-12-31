@@ -6,4 +6,8 @@ EventListenerKey::EventListenerKey()
 	
 }
 
+void EventListenerKey::process(KeyboardEvent event)
+{
+	
+}
 

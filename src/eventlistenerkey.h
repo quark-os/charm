@@ -10,7 +10,7 @@ public:
 
 	EventListenerKey();
 	
-	virtual void operator() (KeyboardEvent event) = 0;
+	virtual void process(KeyboardEvent event);
 			
 private:
 	

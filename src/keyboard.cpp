@@ -1,6 +1,7 @@
 #include "keyboard.h"
 #include "keyboardtranslator.h"
 #include "keyboardevent.h"
+#include "eventlistenerkey.h"
 #include "pio.h"
 #include "system.h"
 
@@ -46,6 +47,7 @@ uint8_t Keyboard::addListener(EventListenerKey* listener)
 			return i;
 		}
 	}
+	return -1;
 }
 
 void Keyboard::sendEvent(KeyboardEvent event)
@@ -64,9 +66,14 @@ void Keyboard::handleEvents()
 	{
 		for(int j = 0; j < 16; j++)
 		{
-			if(listeners[i] != 0)
+			if(listeners[j] != 0)
 			{
-				(*listeners[j])(eventQueue[i]);
+				System::display.printError(eventQueue[i].getKeycode());
+				System::display.printError(" : ");
+				System::display.printError((uint32_t) *((uint32_t*) (listeners[j])));
+				System::display.printError("\n");
+				System::panic();
+				(*listeners[j]).process(eventQueue[i]);
 			}
 		}
 	}
@@ -147,7 +154,7 @@ void Keyboard::doCommand(uint8_t command, uint8_t data)
 		}
 		else
 		{
-			System::display.print("Kbd data timeout\n");
+			System::display.printError("Kbd data timeout\n");
 		}
 	}
 	else
@@ -176,9 +183,9 @@ bool Keyboard::waitForAck()
 	if(waitForBuffer(BUFFER_OUTPUT, false))
 	{
 		uint8_t response = inb(0x60);
-		System::display.print("Reply: ");
-		System::display.print(response);
-		System::display.print("\n");
+		//System::display.print("Reply: ");
+		//System::display.print(response);
+		//System::display.print("\n");
 		if(response == 0xFA)
 			return true;
 		else

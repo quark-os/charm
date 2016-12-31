@@ -11,6 +11,8 @@ public:
 
 	Display();
 	
+	void initialize();
+	
 	void clear();
 	
 	void putChar(char c);
@@ -21,6 +23,10 @@ public:
 	void print(uint64_t msg);
 	
 	void printError(char* msg);
+	void printError(uint8_t msg);
+	void printError(uint16_t msg);
+	void printError(uint32_t msg);
+	void printError(uint64_t msg);
 			
 private:
 

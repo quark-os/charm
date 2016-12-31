@@ -8,11 +8,14 @@ Display System::display;
 void System::initialize()
 {
 	display = Display();
-	
+	display.initialize();
+	panic();
 	KeyboardTranslator::initialize();
 	Keyboard::initialize();
-	Keyboard::addListener(&display.console);
 	InterruptController::init(0x100000);
+	
+	display.printError("Finished init.\n");
+	panic();
 }
 
 void System::run()
