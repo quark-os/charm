@@ -10,8 +10,7 @@
 #define CMD_SETLED 0xED
 #define CMD_WRITECFG 0x60
 
-#include "keyboardevent.h"
-#include "eventlistenerkey.h"
+#include <stdint.h>
 
 class Keyboard
 {
@@ -21,19 +20,9 @@ public:
 	
 	static bool getKeyState(uint8_t keycode);
 	
-	static uint8_t addListener(EventListenerKey* listener);
-	
-	static void sendEvent(KeyboardEvent event);
-	
-	static void handleEvents();
-	
 	static void scan();
 			
 private:
-
-	static void doCommand(uint8_t command);
-	
-	static void doCommand(uint8_t command, uint8_t data);
 
 	static uint8_t readByte();
 	
@@ -42,12 +31,6 @@ private:
 	static bool waitForAck();
 
 	static bool keyflags[128];
-	
-	static EventListenerKey* listeners[16];
-	
-	static KeyboardEvent eventQueue[16];
-	
-	static int eventQueueLength;
 		
 };
 

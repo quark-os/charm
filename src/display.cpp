@@ -6,12 +6,12 @@ Display::Display()
 {
 	clear();
 	console = Console(0, 1, 40, 24);
-	error = Window(40, 1, 40, 24);
+	info = Window(40, 1, 40, 24);
 }
 
 void Display::initialize()
 {
-	Keyboard::addListener(&console);
+	System::eventSystem.addListener(&console);
 }
 
 void Display::clear()
@@ -26,55 +26,55 @@ void Display::clear()
 
 void Display::putChar(char c)
 {
-	console.putChar(c);
+	info.putChar(c);
 }
 
 void Display::print(char* msg)
 {
-	console << msg;
+	info << msg;
 }
 
 void Display::print(uint8_t msg)
 {
-	console << msg;
+	info << msg;
 }
 
 void Display::print(uint16_t msg)
 {
-	console << msg;
+	info << msg;
 }
 
 void Display::print(uint32_t msg)
 {
-	console << msg;
+	info << msg;
 }
 
 void Display::print(uint64_t msg)
 {
-	console << msg;
+	info << msg;
 }
 
 void Display::printError(char* msg)
 {
-	error << msg;
+	info << msg;
 }
 
 void Display::printError(uint8_t msg)
 {
-	error << msg;
+	info << msg;
 }
 
 void Display::printError(uint16_t msg)
 {
-	error << msg;
+	info << msg;
 }
 
 void Display::printError(uint32_t msg)
 {
-	error << msg;
+	info << msg;
 }
 
 void Display::printError(uint64_t msg)
 {
-	error << msg;
+	info << msg;
 }

@@ -30,7 +30,7 @@ public:
 			
 private:
 
-	Window error;
+	Window info;
 	Console console;
 	
 };

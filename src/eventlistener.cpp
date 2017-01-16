@@ -5,8 +5,3 @@ EventListener::EventListener()
 {
 	
 }
-
-void EventListener::process()
-{
-	
-}

@@ -2,10 +2,10 @@
 #define CONSOLE_H
 
 #include "window.h"
-#include "eventlistenerkey.h"
-#include "keyboardevent.h"
+#include "event.h"
+#include "eventlistener.h"
 
-class Console: public Window, public EventListenerKey
+class Console: public Window, public EventListener
 {
 public:
 
@@ -13,7 +13,7 @@ public:
 		
 		Console(int x, int y, int width, int height);
 		
-		virtual void process(KeyboardEvent event);
+		virtual void process(Event* event);
 			
 private:
 	
